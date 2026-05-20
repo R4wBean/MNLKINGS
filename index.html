@@ -1,6 +1,4 @@
- <!DOCTYPE html>
-<html>
-<head>
+<html><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CLICKABOLS</title>
 
@@ -691,7 +689,7 @@ textarea{
 
 <!-- From Uiverse.io by santhosh_2608 --> 
 <label class="toggle-switch">
-  <input type="checkbox" class="toggle-input" />
+  <input type="checkbox" class="toggle-input">
   <span class="toggle-track">
     <span class="toggle-rust"></span>
     <span class="toggle-glow"></span>
@@ -700,22 +698,12 @@ textarea{
       <span class="thumb-shine"></span>
     </span>
     <span class="toggle-icons">
-      <svg
-        class="icon-off"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      >
+      <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="12" cy="12" r="5"></circle>
-        <path
-          d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
-        ></path>
+        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
       </svg>
       <svg class="icon-on" viewBox="0 0 24 24" fill="currentColor">
-        <path
-          d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313-12.454z"
-        ></path>
+        <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313-12.454z"></path>
       </svg>
     </span>
   </span>
@@ -787,10 +775,26 @@ let activeButton=null;
 
 function cleanLines(text){
     return text.split("\n")
-        .map(l=>l.trim())
-        .filter(l=>l && !l.includes(".txt"));
-}
-		
+        .map(l => l.trim())
+        .filter(l =>
+            l &&
+            !l.includes(".txt") &&
+            !l.includes(" KB") &&
+            l !== "•" &&
+            l !== "TXT" &&
+            l !== "A" &&
+            l !== "threads 2026" &&
+            l !== "Data" &&
+            l !== "Share" &&
+            l !== "Interfaces" &&
+            l !== "Forms" &&
+            l !== "All changes saved" &&
+            l !== "There are no comments on this attachment yet." &&
+            l !== "Pro tip: click and drag on images and videos to annotate them." &&
+            l !== "Comments" &&
+            l !== "Automations"
+        );
+}		
 function formatBio(text){
     const parts=text.trim().split(/\s+/);
     if(parts.length<3) return text;
@@ -857,11 +861,11 @@ function generate(){
         username = parts[0] || "";
         email = parts[5] || "";
         vpn = parts[6] || "";
-        model = parts[7] || "";
-        location = parts[9] || "";
-        bioRaw = parts[12] || "";
-        repostCaption = parts[13] || "";
-        repostAcc = parts[18] || "";
+        model = parts[8] || "";
+        location = parts[10] || "";
+        bioRaw = parts[13] || "";
+        repostCaption = parts[14] || "";
+        repostAcc = parts[19] || "";
 
         document.getElementById("mainUsername").innerText=username;
     }
@@ -982,7 +986,7 @@ San Jose`;
     passBtn.className="output-btn";
     passBtn.innerText="Pass";
     passBtn.onclick=()=>{
-        navigator.clipboard.writeText("Ascension2025!");
+        navigator.clipboard.writeText("Ascension2025!\n" );
         if(activeButton) activeButton.classList.remove("active");
         passBtn.classList.add("active");
         activeButton=passBtn;
@@ -1017,5 +1021,5 @@ San Jose`;
 
 </script>
 
-</body>
-</html>
+
+</body></html>
