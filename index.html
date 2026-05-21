@@ -780,6 +780,8 @@ function cleanLines(text){
             l &&
             !l.includes(".txt") &&
             !l.includes(" KB") &&
+            l !== "1" &&
+            l !== "1 cell selected" &&
             l !== "•" &&
             l !== "TXT" &&
             l !== "A" &&
