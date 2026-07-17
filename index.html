@@ -1,4 +1,6 @@
-<html><head>
+ <!DOCTYPE html>
+<html>
+<head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CLICKABOLS</title>
 
@@ -181,6 +183,12 @@ textarea{
     background:#2a2a2a;
     color:white;
     resize:none;
+
+    font-family:"Consolas","Courier New",monospace;
+    font-size:15px;
+    font-weight:600;
+    letter-spacing:1px;
+text-transform: uppercase;
 }
 
 .generate-btn{
@@ -689,7 +697,7 @@ textarea{
 
 <!-- From Uiverse.io by santhosh_2608 --> 
 <label class="toggle-switch">
-  <input type="checkbox" class="toggle-input">
+  <input type="checkbox" class="toggle-input" />
   <span class="toggle-track">
     <span class="toggle-rust"></span>
     <span class="toggle-glow"></span>
@@ -698,12 +706,22 @@ textarea{
       <span class="thumb-shine"></span>
     </span>
     <span class="toggle-icons">
-      <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg
+        class="icon-off"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
         <circle cx="12" cy="12" r="5"></circle>
-        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+        <path
+          d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+        ></path>
       </svg>
       <svg class="icon-on" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313-12.454z"></path>
+        <path
+          d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313-12.454z"
+        ></path>
       </svg>
     </span>
   </span>
@@ -780,14 +798,14 @@ function cleanLines(text){
             l &&
             !l.includes(".txt") &&
             !l.includes(" KB") &&
-            l !== "1" &&
-            l !== "1 cell selected" &&
             l !== "•" &&
             l !== "TXT" &&
             l !== "A" &&
+            l !== "ascension Assistants" &&
             l !== "threads 2026" &&
             l !== "Data" &&
             l !== "Share" &&
+            l !== "Over limits" &&
             l !== "Interfaces" &&
             l !== "Forms" &&
             l !== "All changes saved" &&
@@ -866,15 +884,46 @@ function generate(){
         model = parts[7] || "";
         location = parts[9] || "";
         bioRaw = parts[12] || "";
-        repostCaption = parts[13] || "";
-        repostAcc = parts[18] || "";
+        repostCaption = parts[15] || "";
+        repostAcc = parts[13] || "";
+         tgUsername = parts[14] || "";
+
 
         document.getElementById("mainUsername").innerText=username;
     }
 
-    const pics=cleanLines(document.getElementById("pics").value);
-    const caps=cleanLines(document.getElementById("captions").value);
-    const topics=cleanLines(document.getElementById("topics").value);
+    let pics=cleanLines(document.getElementById("pics").value);
+    let caps=cleanLines(document.getElementById("captions").value);
+    let topics=cleanLines(document.getElementById("topics").value);
+
+    /* ===== FALLBACK FROM 20-CELL INPUT ===== */
+
+const rawParts = raw.split("\t");
+
+for(let i = 0; i < rawParts.length; i++){
+    rawParts[i] = rawParts[i].trim();
+}
+
+if(rawParts.length >= 20){
+
+    // column 17 = Post 1
+    // column 18 = Post 2
+    // column 19 = Post 3
+
+    let postCells = [
+        rawParts[17],
+        rawParts[18],
+        rawParts[19]
+    ];
+
+    postCells = postCells.map(post =>
+        post ? post.replace(/\{location\}/gi, location) : ""
+    );
+
+    if(!caps.length){
+        caps = postCells.filter(Boolean);
+    }
+}
 
     if(pics[0]){
         const info=extractPicInfo(pics[0]);
@@ -988,24 +1037,66 @@ San Jose`;
     passBtn.className="output-btn";
     passBtn.innerText="Pass";
     passBtn.onclick=()=>{
-        navigator.clipboard.writeText("Ascension2025!\n" );
+        navigator.clipboard.writeText("Ascension2025!\n");
         if(activeButton) activeButton.classList.remove("active");
         passBtn.classList.add("active");
         activeButton=passBtn;
     };
     row2.appendChild(passBtn);
 
-    if(bioRaw){
-        row2.appendChild(createCopyButton("Bio",formatBio(bioRaw),allValues));
+if (bioRaw) {
+
+    // Remove the original 📍 and TG: if they exist
+    let bioText = bioRaw
+        .replace(/^📍\s*/i, "")
+        .replace(/TG:\s*$/i, "")
+        .trim();
+
+    // Split age from the rest
+    const match = bioText.match(/^(\d+)\s+(.*)$/);
+
+    let age = "";
+    let description = bioText;
+
+    if (match) {
+        age = match[1];
+        description = match[2];
     }
+
+    const bioOutput =
+`📍 ${location}
+${age}
+${description}
+TG: ${tgUsername}`;
+
+    row2.appendChild(createCopyButton("Bio", bioOutput, allValues));
+}
     output.appendChild(row2);
 
-    const postRow=document.createElement("div");
-    postRow.className="row";
-    caps.slice(0,3).forEach((cap,i)=>{
-        postRow.appendChild(createCopyButton("Post "+(i+1),cap,allValues));
-    });
-    output.appendChild(postRow);
+   const postRow=document.createElement("div");
+postRow.className="row";
+
+caps.slice(0,3).forEach((cap,i)=>{
+
+    // Replace ALL Post 1 - Post 20 with Location before copying
+    let replacedCaption = cap.replace(
+        /Post\s([1-9]|1[0-9]|20)/gi,
+        location
+    );
+
+    postRow.appendChild(
+        createCopyButton(
+            "Post " + (i+1),
+            replacedCaption,
+            allValues
+        )
+    );
+
+});
+
+
+
+output.appendChild(postRow);
 
     const topicRow=document.createElement("div");
     topicRow.className="row";
@@ -1022,6 +1113,5 @@ San Jose`;
 }
 
 </script>
-
-
-</body></html>
+</body>
+</html>
