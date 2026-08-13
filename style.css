@@ -1177,50 +1177,91 @@ a {
    MOBILE
 ========================================= */
 
+/* =========================================
+   TEAMS - MOBILE HORIZONTAL SWIPE
+   ========================================= */
+
 @media (max-width: 600px) {
 
     .teams-grid {
-        grid-template-columns: 1fr;
+
+        display: flex;
+
+        flex-direction: row;
+
+        gap: 15px;
 
         width: 100%;
 
-        padding: 0 20px;
+        overflow-x: auto;
+        overflow-y: hidden;
 
-        gap: 20px;
+        padding: 5px 20px 20px;
+
+        box-sizing: border-box;
+
+        scroll-snap-type: x mandatory;
+
+        -webkit-overflow-scrolling: touch;
+
+        scrollbar-width: none;
     }
 
+
+    /* Hide scrollbar */
+
+    .teams-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    /* EVERY TEAM CARD SAME SIZE */
+
     .team-card {
-        width: 100%;
 
-        max-width: 360px;
+        flex: 0 0 78%;
 
-        margin: 0 auto;
+        width: 78%;
+
+        min-width: 78%;
+
+        max-width: none;
+
+        margin: 0;
+
+        scroll-snap-align: start;
+
+        box-sizing: border-box;
     }
 
 }
 
 
 /* =========================================
-   SMALL PHONES
-========================================= */
+   TEAMS - SMALL PHONES
+   ========================================= */
 
 @media (max-width: 380px) {
 
     .teams-grid {
-        padding: 0 15px;
+
+        gap: 12px;
+
+        padding-left: 15px;
+
+        padding-right: 15px;
     }
+
 
     .team-card {
-        max-width: 100%;
+
+        flex: 0 0 82%;
+
+        width: 82%;
+
+        min-width: 82%;
     }
 
-    .team-card-info {
-        padding: 17px;
-    }
-
-    .team-card-info h3 {
-        font-size: 21px;
-    }
 }
 
 

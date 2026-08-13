@@ -109,3 +109,80 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+/* =========================================
+   TEAM CAROUSEL - INFINITE LOOP
+   ========================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const slider = document.querySelector(".teams-grid");
+
+    if (!slider) return;
+
+    const cards = Array.from(slider.querySelectorAll(".team-card"));
+
+    if (cards.length < 2) return;
+
+
+    /* Clone first and last cards */
+
+    const firstClone = cards[0].cloneNode(true);
+    const lastClone = cards[cards.length - 1].cloneNode(true);
+
+    firstClone.classList.add("carousel-clone");
+    lastClone.classList.add("carousel-clone");
+
+    slider.appendChild(firstClone);
+    slider.insertBefore(lastClone, slider.firstChild);
+
+
+    /* Start on the REAL first card */
+
+    requestAnimationFrame(function () {
+
+        slider.scrollLeft =
+            slider.children[1].offsetLeft -
+            slider.offsetLeft;
+
+    });
+
+
+    /* Infinite scrolling */
+
+    slider.addEventListener("scroll", function () {
+
+        const firstRealCard = slider.children[1];
+        const lastRealCard = slider.children[cards.length];
+
+        const tolerance = 10;
+
+
+        /* Reached cloned last card */
+
+        if (
+            slider.scrollLeft >=
+            lastRealCard.offsetLeft - slider.offsetLeft - tolerance
+        ) {
+
+            slider.scrollLeft =
+                firstRealCard.offsetLeft -
+                slider.offsetLeft;
+
+        }
+
+
+        /* Reached cloned first card */
+
+        if (
+            slider.scrollLeft <= 0
+        ) {
+
+            slider.scrollLeft =
+                lastRealCard.offsetLeft -
+                slider.offsetLeft;
+
+        }
+
+    });
+
+});
