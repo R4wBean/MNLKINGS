@@ -608,7 +608,7 @@ a {
 
 .date-day {
 
-    font-size: 58px;
+    font-size: 40px;
 
     line-height: 55px;
 
@@ -1604,7 +1604,7 @@ a {
 
     color: #BDBDBD;
 
-    font-size: 6px;
+    font-size: 12px;
     line-height: 1;
 
     font-weight: 700;
@@ -1740,7 +1740,85 @@ a {
     .stat-box strong {
         font-size: 13px;
     }
+}
+/* =========================================
+   QUICK LINKS - MOBILE SWIPE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .quick-grid {
+        display: flex;
+        flex-direction: row;
+
+        gap: 12px;
+
+        width: 100%;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        padding: 5px 15px 15px;
+
+        box-sizing: border-box;
+
+        scroll-snap-type: x mandatory;
+
+        -webkit-overflow-scrolling: touch;
+
+        scrollbar-width: none;
+    }
+
+    /* Hide scrollbar */
+    .quick-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* One card at a time, same behavior as players */
+    .quick-card {
+        flex: 0 0 78%;
+
+        width: 78%;
+        min-width: 78%;
+
+        scroll-snap-align: start;
+
+        box-sizing: border-box;
+    }
+}
+
+
+/* =========================================
+   SMALL PHONES
+   ========================================= */
+
+@media (max-width: 380px) {
+
+    .quick-grid {
+        gap: 10px;
+
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .quick-card {
+        flex: 0 0 82%;
+
+        width: 82%;
+        min-width: 82%;
+    }
+
+
+
+
+
+
+
 
 }
+
+
+
+
 
 
