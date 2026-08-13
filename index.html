@@ -1,1117 +1,544 @@
- <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CLICKABOLS</title>
 
-<style>
-body{
-    font-family: Arial;
-    background:#111;
-    color:#eee;
-    display:flex;
-    justify-content:center;
-    padding:40px 15px;
-}
+    <meta charset="UTF-8">
 
-.container{
-    width:100%;
-    max-width:900px;
-    background:#1e1e1e;
-    padding:30px;
-    border-radius:28px;
-}
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-h3{
-    font-size:16px;          /* ← Text size */
-    color:gray;              /* ← Text color */
-    letter-spacing:1px;      /* ← Space between letters */
-    font-weight:600;         /* ← Thickness */
-    margin-bottom:8px;       /* ← Spacing under text */
+    <title>Manila Kings | Home</title>
 
-    text-shadow:             /* ← Glow / shadow effect */
-        0 0 5px rgba(0,255,255,0.2);
-}
+    <link rel="stylesheet" href="css/style.css">
 
-
-/* ===== HOLOGRAPHIC TITLE ===== */
-
-.holographic-card {
-  width: 60%;
-height: 2%;
-  max-width: 420px;
-  margin: 0 auto 10px auto;
-  background: #11;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  border-radius: 20px;
-  transition: all 0.5s ease;
-  padding: 20px 0;
-  cursor: pointer;
-}
-
-.holographic-card h2 {
-  position: relative;
-  font-size: 32px;
-  font-family:"Montserrat","Segoe UI",sans-serif;
-  font-weight:900;
-  margin:0;
-  height:40px;
-  
-
-}
-
-.default-text,
-.hover-text{
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  transition: all 0.4s ease;
-  white-space:nowrap;
-}
-
-.default-text{
-  color:white;
-  opacity:1;
-}
-
-.hover-text{
-  color:#0ff;
-  opacity:0;
-}
-
-.holographic-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    0deg, 
-    transparent, 
-    transparent 30%, 
-    rgba(255, 255, 255, 1)
-  );
-  transform: rotate(-45deg);
-  transition: all 3.5s ease;
-  opacity: 0;
-}
-
-.holographic-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px rgb(0, 0, 0);
-}
-
-.holographic-card:hover::before {
-  opacity: 1;
-  transform: rotate(-45deg) translateY(100%);
-
-}
-
-.holographic-card:hover .default-text{
-  opacity:0;
-  transform:translateX(-50%) scale(0.9);
-}
-
-.holographic-card:hover .hover-text{
-  opacity:1;
-  transform:translateX(-50%) scale(1);
-
-}
-
-/* ===== ORIGINAL STYLES ===== */
-
-.title-sub{
-    text-align:center;
-    font-size:13px;
-    opacity:0.7;
-    margin-top: 1px;
-    margin-bottom:12px;
-}
-
-.top-info{
-    margin-bottom:2px;
-    font-size:15px;
-    font-family:"Montserrat","Segoe UI",sans-serif;
-    font-weight:600;
-}
-
-.row{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:10px;
-    margin-top:12px;
-}
-
-.output-btn{
-    padding:10px 18px;
-    border:none;
-    border-radius:16px;
-    background:#2f2f2f;
-    color:white;
-    cursor:pointer;
-    font-size:14px;
-    transition:0.2s ease;
-}
-
-.output-btn:hover{
-    background:#3d3d3d;
-}
-
-.output-btn.active{
-    background:#29F8FF;
-    color:#000;
-    font-weight:900;
-}
-
-.output-btn.duplicate{
-    background:#7a1b1b;
-}
-
-textarea{
-    width:100%;
-    height:110px;
-    margin-top:8px;
-    padding:12px;
-    border-radius:18px;
-    border:none;
-    background:#2a2a2a;
-    color:white;
-    resize:none;
-
-    font-family:"Consolas","Courier New",monospace;
-    font-size:15px;
-    font-weight:600;
-    letter-spacing:1px;
-text-transform: uppercase;
-}
-
-.generate-btn{
-    width:100%;
-    padding:14px;
-    margin-top:20px;
-    border:none;
-    border-radius:28px;
-    background:#444;
-    color:white;
-    font-size:15px;
-    cursor:pointer;
-}
-
-#mainUsername{
-    text-align:center;
-    color:white;
-    font-family:"Montserrat","Segoe UI",sans-serif;
-    font-size:18px;
-    font-weight:700;
-}
-
-.section{ margin-top:25px; }
-
-
-
-
-
-
-
-
-
-
-
-
-/* From Uiverse.io by santhosh_2608 */ 
-.toggle-switch {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  cursor: pointer;
-  user-select: none;
-  position: relative;
-}
-
-.toggle-input {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.toggle-track {
-  position: relative;
-  width: 76px;
-  height: 38px;
-  background: linear-gradient(160deg, #1c1c1c 0%, #0a0a0a 40%, #151515 100%);
-  border: 2px solid #3a302a;
-  border-radius: 6px;
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
-  box-sizing: border-box;
-  box-shadow:
-    inset 0 4px 12px rgba(0, 0, 0, 0.5),
-    inset 0 -2px 6px rgba(255, 255, 255, 0.02),
-    0 4px 16px rgba(0, 0, 0, 0.4);
-}
-
-.toggle-track::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent 0px,
-    transparent 3px,
-    rgba(0, 0, 0, 0.08) 3px,
-    rgba(0, 0, 0, 0.08) 4px
-  );
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-.toggle-track::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.05),
-    transparent
-  );
-}
-
-.toggle-rust {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-      ellipse at 5% 90%,
-      rgba(139, 69, 19, 0.2) 0%,
-      transparent 35%
-    ),
-    radial-gradient(
-      ellipse at 95% 10%,
-      rgba(120, 60, 20, 0.15) 0%,
-      transparent 30%
-    ),
-    radial-gradient(
-      ellipse at 50% 100%,
-      rgba(100, 50, 15, 0.1) 0%,
-      transparent 40%
-    );
-  pointer-events: none;
-  transition: all 0.6s ease;
-}
-
-.toggle-input:checked + .toggle-track {
-  border-color: #00cfe8;
-  background: linear-gradient(160deg, #0f2024 0%, #081416 40%, #0c1b1f 100%);
-  box-shadow:
-    inset 0 4px 12px rgba(0, 0, 0, 0.5),
-    inset 0 -2px 6px rgba(0, 207, 232, 0.08),
-    0 4px 24px rgba(0, 207, 232, 0.25),
-    0 0 50px rgba(0, 207, 232, 0.15);
-}
-
-.toggle-input:checked + .toggle-track .toggle-rust {
-  background: radial-gradient(
-      ellipse at 5% 90%,
-      rgba(0, 207, 232, 0.15) 0%,
-      transparent 35%
-    ),
-    radial-gradient(
-      ellipse at 95% 10%,
-      rgba(120, 240, 255, 0.25) 0%,
-      transparent 45%
-    ),
-    radial-gradient(
-      ellipse at 80% 50%,
-      rgba(180, 255, 255, 0.15) 0%,
-      transparent 55%
-    );
-}
-
-.toggle-glow {
-  position: absolute;
-  inset: 0;
- background: radial-gradient(
-    ellipse at 78% 50%,
-    rgba(0, 220, 255, 0.35) 0%,
-    transparent 55%
-  );
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  pointer-events: none;
-}
-
-.toggle-input:checked + .toggle-track .toggle-glow {
-  opacity: 1;
-  animation: glowPulse 2.5s ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-  0%,
-  100% {
-    opacity: 0.7;
-    filter: brightness(1);
-  }
-
-  50% {
-    opacity: 1;
-    filter: brightness(1.2);
-  }
-}
-
-.toggle-thumb {
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 26px;
-  height: 26px;
-  background: linear-gradient(145deg, #5a5048 0%, #3a3028 40%, #4a4038 100%);
-  border: 1px solid #6a5a4a;
-  border-radius: 4px;
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 4px 14px rgba(0, 0, 0, 0.5),
-    0 2px 4px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-  box-sizing: border-box;
-  z-index: 2;
-}
-
-.toggle-input:checked + .toggle-track .toggle-thumb {
-  left: calc(100% - 30px);
-  background: linear-gradient(145deg, #00eaff 0%, #00bcd4 40%, #00d4ff 100%);
-  border-color: #7ef9ff;
-  box-shadow:
-    0 4px 24px rgba(0, 220, 255, 0.65),
-    0 0 35px rgba(0, 220, 255, 0.45),
-    0 0 70px rgba(0, 220, 255, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-.thumb-inner {
-  width: 12px;
-  height: 12px;
-  background: linear-gradient(145deg, #6a5a4a 0%, #4a3a30 100%);
-  border-radius: 50%;
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
-  position: relative;
-}
-
-.toggle-input:checked + .toggle-track .thumb-inner {
-  background: linear-gradient(145deg, #a5faff 0%, #00eaff 100%);
-  box-shadow:
-    0 0 14px rgba(0, 255, 255, 0.9),
-    0 0 28px rgba(0, 220, 255, 0.6),
-    0 0 42px rgba(0, 180, 255, 0.3),
-    inset 0 1px 2px rgba(255, 255, 255, 0.4);
-}
-@keyframes emberGlow {
-  0%,
-  100% {
-    box-shadow:
-      0 0 14px rgba(255, 144, 96, 0.9),
-      0 0 28px rgba(255, 112, 64, 0.6);
-    transform: scale(1);
-  }
-
-  50% {
-    box-shadow:
-      0 0 18px rgba(255, 144, 96, 1),
-      0 0 36px rgba(255, 112, 64, 0.8),
-      0 0 54px rgba(255, 90, 50, 0.4);
-    transform: scale(1.08);
-  }
-}
-
-.thumb-shine {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 45%;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.12) 0%,
-    transparent 100%
-  );
-  border-radius: 4px 4px 0 0;
-  pointer-events: none;
-  transition: all 0.6s ease;
-}
-
-.toggle-input:checked + .toggle-track .thumb-shine {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.25) 0%,
-    transparent 100%
-  );
-}
-
-.toggle-icons {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 11px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.toggle-icons svg {
-  width: 16px;
-  height: 16px;
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.icon-off {
-  color: #6a6050;
-  opacity: 1;
-  transform: rotate(0deg) scale(1);
-}
-
-.icon-on {
-  color: #4a3828;
-  opacity: 0.35;
-  transform: rotate(-20deg) scale(0.9);
-}
-
-.toggle-input:checked + .toggle-track .icon-off {
-  opacity: 0.15;
-  color: #3a3028;
-  transform: rotate(180deg) scale(0.8);
-}
-
-.toggle-input:checked + .toggle-track .icon-on {
-  opacity: 1;
-  color: #00eaff;
-  transform: rotate(0deg) scale(1.1);
-  filter: drop-shadow(0 0 8px rgba(0, 220, 255, 0.7));
-}
-
-.toggle-label {
-  position: relative;
-  font-family: "Consolas", "Courier New", monospace;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  min-width: 32px;
-}
-
-.label-off,
-.label-on {
-  position: absolute;
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.label-off {
-  color: #5a5040;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.label-on {
-  color: #00eaff;
-    opacity: 0;
-  transform: translateY(10px);
-}
-
-.toggle-input:checked ~ .toggle-label .label-off {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-
-.toggle-input:checked ~ .toggle-label .label-on {
-  opacity: 1;
-  transform: translateY(0);
-  text-shadow:
-   0 0 12px rgba(0, 220, 255, 0.7),
-    0 0 24px rgba(0, 220, 255, 0.4);
-  animation: labelGlow 2s ease-in-out infinite;
-}
-
-@keyframes labelGlow {
-  0%,
-  100% {
-    text-shadow:
-      0 0 12px rgba(224, 90, 48, 0.6),
-      0 0 24px rgba(224, 90, 48, 0.3);
-  }
-
-  50% {
-    text-shadow:
-      0 0 16px rgba(224, 90, 48, 0.8),
-      0 0 32px rgba(224, 90, 48, 0.5);
-  }
-}
-
-.toggle-switch:hover .toggle-track {
-  border-color: #5a4838;
-  transform: scale(1.03);
-}
-
-.toggle-switch:hover .toggle-input:checked + .toggle-track {
-  border-color: #00eaff;
-}
-
-.toggle-switch:hover .toggle-thumb {
-  box-shadow:
-    0 6px 18px rgba(0, 0, 0, 0.6),
-    0 2px 4px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
-}
-
-.toggle-switch:hover .toggle-input:checked + .toggle-track .toggle-thumb {
-  box-shadow:
-    0 6px 28px rgba(224, 90, 48, 0.75),
-    0 0 50px rgba(224, 90, 48, 0.55),
-    0 0 90px rgba(224, 90, 48, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-.toggle-switch:active .toggle-thumb {
-  width: 32px;
-  transition: all 0.12s ease;
-}
-
-.toggle-switch:active .toggle-input:checked + .toggle-track .toggle-thumb {
-  left: calc(100% - 36px);
-  width: 32px;
-}
-
-.toggle-input:focus-visible + .toggle-track {
-  outline: 2px solid #ff7040;
-  outline-offset: 4px;
-}
-
-.toggle-switch::before {
-  content: "";
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  right: -6px;
-  bottom: -6px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(224, 90, 48, 0.08) 0%,
-    transparent 70%
-  );
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  pointer-events: none;
-  border-radius: 12px;
-}
-
-.toggle-switch:hover::before {
-  opacity: 1;
-}
-
-.toggle-switch::after {
-  content: "";
-  position: absolute;
-  bottom: -14px;
-  left: 10px;
-  width: 56px;
-  height: 14px;
-  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.35) 0%, transparent 70%);
-  filter: blur(5px);
-  opacity: 0.7;
-  transition: all 0.6s ease;
-  pointer-events: none;
-}
-
-.toggle-switch:hover::after {
-  opacity: 0.9;
-  transform: scale(1.08);
-}
-
-.toggle-switch {
-  transform: scale(0.8);
-  transform-origin: left center; /* keeps alignment clean */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</style>
 </head>
 
 <body>
 
-<div class="container">
 
-<div class="holographic-card">
-    <h2>
-        <span class="default-text">CLICKA BY RB</span>
-        <span class="hover-text">ASCENSION</span>
-    </h2>
-</div>
+    <!-- =========================================
+         HEADER
+         ========================================= -->
 
+    <header class="site-header">
 
+        <div class="header-container">
 
+            <a href="index.html" class="logo-link">
 
+                <img
+                    src="KINGSLOGO.png"
+                    alt="Manila Kings"
+                    class="header-logo"
+                >
 
+            </a>
 
 
+            <nav class="main-nav">
 
+                <a href="index.html" class="active">
+                    HOME
+                </a>
 
+                <a href="team.html">
+                    TEAM
+                </a>
 
+                <a href="#">
+                    STATS
+                </a>
 
+            </nav>
 
+        </div>
 
+    </header>
 
-<!-- From Uiverse.io by santhosh_2608 --> 
-<label class="toggle-switch">
-  <input type="checkbox" class="toggle-input" />
-  <span class="toggle-track">
-    <span class="toggle-rust"></span>
-    <span class="toggle-glow"></span>
-    <span class="toggle-thumb">
-      <span class="thumb-inner"></span>
-      <span class="thumb-shine"></span>
-    </span>
-    <span class="toggle-icons">
-      <svg
-        class="icon-off"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <circle cx="12" cy="12" r="5"></circle>
-        <path
-          d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
-        ></path>
-      </svg>
-      <svg class="icon-on" viewBox="0 0 24 24" fill="currentColor">
-        <path
-          d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313-12.454z"
-        ></path>
-      </svg>
-    </span>
-  </span>
-  <span class="toggle-label">
-    <span class="label-off">Posting</span>
-    <span class="label-on">CREATION</span>
-  </span>
-</label>
 
 
+    <!-- =========================================
+         HERO
+         ========================================= -->
 
+    <main>
 
 
+        <section class="hero">
 
 
+            <!-- SLIDESHOW -->
 
+            <div class="hero-slideshow">
 
+                <div
+                    class="slide active"
+                    style="background-image: url('pbmtsmpl.jpg');">
+                </div>
 
+                <div
+                    class="slide"
+                    style="background-image: url('images/pubmat2.jpg');">
+                </div>
 
+                <div
+                    class="slide"
+                    style="background-image: url('pubmat3.jpg');">
+                </div>
 
+            </div>
 
 
+            <!-- DARK OVERLAY -->
 
+            <div class="hero-overlay"></div>
 
 
+            <!-- HERO CONTENT -->
 
+            <div class="hero-content">
 
+                <div class="hero-small">
+                    
+                </div>
 
+                <h1>
+                    MANILA<br>KINGS
+                </h1>
 
-<div id="mainUsername"></div>
+                <p>
+                    LION'S CUP TOURNAMENT
+                </p>
 
-<div class="top-info">
-<div id="modelOutput"></div>
-<div id="locationOutput"></div>
-<div id="proxyOutput"></div>
-</div>
 
-<div id="output"></div>
+                <div class="hero-buttons">
 
-<div class="section">
-<h3>INFO INPUT</h3>
-<textarea id="repost"></textarea>
-</div>
+                    <a href="team.html"
+                       class="btn btn-primary">
+                        MEET THE TEAM
+                    </a>
 
-<div class="section">
-<h3>Caption</h3>
-<textarea id="captions"></textarea>
-</div>
+                    <a href="#match"
+                       class="btn btn-outline">
+                        NEXT MATCH
+                    </a>
 
-<div class="section">
-<h3>Topic</h3>
-<textarea id="topics"></textarea>
-</div>
-
-<div class="section">
-<h3>Pictures</h3>
-<textarea id="pics"></textarea>
-</div>
-
-<button class="generate-btn" onclick="generate()">Generate Buttons</button>
-
-</div>
-
-<script>
-
-/* ===== YOUR ENTIRE ORIGINAL SCRIPT 100% INCLUDED ===== */
-
-let activeButton=null;
-
-function cleanLines(text){
-    return text.split("\n")
-        .map(l => l.trim())
-        .filter(l =>
-            l &&
-            !l.includes(".txt") &&
-            !l.includes(" KB") &&
-            l !== "•" &&
-            l !== "TXT" &&
-            l !== "A" &&
-            l !== "ascension Assistants" &&
-            l !== "threads 2026" &&
-            l !== "Data" &&
-            l !== "Share" &&
-            l !== "Over limits" &&
-            l !== "Interfaces" &&
-            l !== "Forms" &&
-            l !== "All changes saved" &&
-            l !== "There are no comments on this attachment yet." &&
-            l !== "Pro tip: click and drag on images and videos to annotate them." &&
-            l !== "Comments" &&
-            l !== "Automations"
-        );
-}		
-function formatBio(text){
-    const parts=text.trim().split(/\s+/);
-    if(parts.length<3) return text;
-    return parts[0]+"\n"+parts[1]+" "+parts.slice(2).join(" ");
-}
-
-function extractPicInfo(link){
-    try{
-        const parts=link.split("/");
-        const nameRaw=parts[3]||"";
-        const name=nameRaw.split(" ")[0];
-        const file=parts[parts.length-1];
-        const locMatch=file.match(/_([a-z-]+)_\d+\.jpg/i);
-        const location=locMatch?
-            locMatch[1].charAt(0).toUpperCase()+locMatch[1].slice(1):"";
-        return {
-            name:name?name.charAt(0).toUpperCase()+name.slice(1):"",
-            location:location
-        };
-    }catch{
-        return {name:"",location:""};
-    }
-}
-
-function createCopyButton(label,value,allValues){
-    const btn=document.createElement("button");
-    btn.className="output-btn";
-    btn.innerText=label;
-
-    const duplicates=allValues.filter(v=>v===value);
-    if(duplicates.length>1){
-        btn.classList.add("duplicate");
-    }
-
-    btn.onclick=()=>{
-        navigator.clipboard.writeText(value);
-        if(activeButton) activeButton.classList.remove("active");
-        btn.classList.add("active");
-        activeButton=btn;
-    };
-
-    return btn;
-}
-
-function generate(){
-
-    const output=document.getElementById("output");
-    output.innerHTML="";
-
-    document.getElementById("mainUsername").innerText="";
-    document.getElementById("modelOutput").innerText="";
-    document.getElementById("locationOutput").innerText="";
-    document.getElementById("proxyOutput").innerHTML="";
-
-    const raw=document.getElementById("repost").value.trim();
-
-    let username="", email="", vpn="", model="", location="";
-    let bioRaw="", repostCaption="", repostAcc="";
-    let picModel="", picLocation="";
-
-    if(raw){
-        const parts=raw.split("\t").map(p=>p.trim());
-
-        username = parts[0] || "";
-        email = parts[5] || "";
-        vpn = parts[6] || "";
-        model = parts[7] || "";
-        location = parts[9] || "";
-        bioRaw = parts[12] || "";
-        repostCaption = parts[15] || "";
-        repostAcc = parts[13] || "";
-         tgUsername = parts[14] || "";
-
-
-        document.getElementById("mainUsername").innerText=username;
-    }
-
-    let pics=cleanLines(document.getElementById("pics").value);
-    let caps=cleanLines(document.getElementById("captions").value);
-    let topics=cleanLines(document.getElementById("topics").value);
-
-    /* ===== FALLBACK FROM 20-CELL INPUT ===== */
-
-const rawParts = raw.split("\t");
-
-for(let i = 0; i < rawParts.length; i++){
-    rawParts[i] = rawParts[i].trim();
-}
-
-if(rawParts.length >= 20){
-
-    // column 17 = Post 1
-    // column 18 = Post 2
-    // column 19 = Post 3
-
-    let postCells = [
-        rawParts[17],
-        rawParts[18],
-        rawParts[19]
-    ];
-
-    postCells = postCells.map(post =>
-        post ? post.replace(/\{location\}/gi, location) : ""
-    );
-
-    if(!caps.length){
-        caps = postCells.filter(Boolean);
-    }
-}
-
-    if(pics[0]){
-        const info=extractPicInfo(pics[0]);
-        picModel=info.name;
-        picLocation=info.location;
-    }
-
-    const finalModelDisplay =
-        model && picModel ? model + "/" + picModel : model || picModel;
-
-    const finalLocationDisplay =
-        location && picLocation ? location + "/" + picLocation : location || picLocation;
-
-    document.getElementById("modelOutput").innerText =
-        "Model: " + (finalModelDisplay || "");
-
-    document.getElementById("locationOutput").innerText =
-        "Location: " + (finalLocationDisplay || "");
-
-    /* ===== PROXY SECTION ===== */
-
-    const proxyContainer = document.getElementById("proxyOutput");
-
-    if(vpn){
-
-        const labelBtn = document.createElement("button");
-        labelBtn.innerText = "Proxy: ";
-        labelBtn.style.background = "transparent";
-        labelBtn.style.border = "none";
-        labelBtn.style.color = "#eee";
-        labelBtn.style.cursor = "pointer";
-        labelBtn.style.fontWeight = "600";
-        labelBtn.style.padding = "0";
-        labelBtn.style.marginRight = "4px";
-
-        labelBtn.onclick = () => {
-
-            const proxyList = `Seattle
-St. Louis
-Washington D.C
-Atlanta
-Chicago
-Los Angeles
-Miami
-New York
-Phoenix
-Salt Lake City
-San Jose
-Seattle
-St. Louis
-Washington D.C
-Atlanta
-Chicago
-Los Angeles
-Miami
-New York
-Phoenix
-Salt Lake City
-San Jose`;
-
-            navigator.clipboard.writeText(proxyList);
-
-            if(activeButton) activeButton.classList.remove("active");
-            labelBtn.classList.add("active");
-            activeButton = labelBtn;
-        };
-
-        const proxyBtn = document.createElement("button");
-        proxyBtn.className = "output-btn";
-        proxyBtn.style.padding = "4px 10px";
-        proxyBtn.style.fontSize = "13px";
-        proxyBtn.innerText = vpn;
-
-        proxyBtn.onclick = () => {
-            navigator.clipboard.writeText(vpn);
-            if(activeButton) activeButton.classList.remove("active");
-            proxyBtn.classList.add("active");
-            activeButton = proxyBtn;
-        };
-
-        proxyContainer.appendChild(labelBtn);
-        proxyContainer.appendChild(proxyBtn);
-    }
-
-    /* ===== BUTTON GENERATION ===== */
-
-    const allValues=[
-        ...pics.slice(0,3),
-        ...caps.slice(0,3),
-        ...topics.slice(0,3),
-        repostAcc,
-        repostCaption,
-        email,
-        username,
-        vpn
-    ].filter(v=>v);
-
-    const picRow=document.createElement("div");
-    picRow.className="row";
-    pics.slice(0,3).forEach((p,i)=>{
-        picRow.appendChild(createCopyButton("Pic "+(i+1),p,allValues));
-    });
-    output.appendChild(picRow);
-
-    const row2=document.createElement("div");
-    row2.className="row";
-    if(email) row2.appendChild(createCopyButton("Email",email,allValues));
-    if(username) row2.appendChild(createCopyButton("Username",username,allValues));
-
-    const passBtn=document.createElement("button");
-    passBtn.className="output-btn";
-    passBtn.innerText="Pass";
-    passBtn.onclick=()=>{
-        navigator.clipboard.writeText("Ascension2025!\n");
-        if(activeButton) activeButton.classList.remove("active");
-        passBtn.classList.add("active");
-        activeButton=passBtn;
-    };
-    row2.appendChild(passBtn);
-
-if (bioRaw) {
-
-    // Remove the original 📍 and TG: if they exist
-    let bioText = bioRaw
-        .replace(/^📍\s*/i, "")
-        .replace(/TG:\s*$/i, "")
-        .trim();
-
-    // Split age from the rest
-    const match = bioText.match(/^(\d+)\s+(.*)$/);
-
-    let age = "";
-    let description = bioText;
-
-    if (match) {
-        age = match[1];
-        description = match[2];
-    }
-
-    const bioOutput =
-`📍 ${location}
-${age}
-${description}
-TG: ${tgUsername}`;
-
-    row2.appendChild(createCopyButton("Bio", bioOutput, allValues));
-}
-    output.appendChild(row2);
-
-   const postRow=document.createElement("div");
-postRow.className="row";
-
-caps.slice(0,3).forEach((cap,i)=>{
-
-    // Replace ALL Post 1 - Post 20 with Location before copying
-    let replacedCaption = cap.replace(
-        /Post\s([1-9]|1[0-9]|20)/gi,
-        location
-    );
-
-    postRow.appendChild(
-        createCopyButton(
-            "Post " + (i+1),
-            replacedCaption,
-            allValues
-        )
-    );
-
-});
-
-
-
-output.appendChild(postRow);
-
-    const topicRow=document.createElement("div");
-    topicRow.className="row";
-    topics.slice(0,3).forEach((topic,i)=>{
-        topicRow.appendChild(createCopyButton("Topic "+(i+1),topic,allValues));
-    });
-    output.appendChild(topicRow);
-
-    const repostRow=document.createElement("div");
-    repostRow.className="row";
-    if(repostAcc) repostRow.appendChild(createCopyButton("Repost Acc",repostAcc,allValues));
-    if(repostCaption) repostRow.appendChild(createCopyButton("Repost Caption",repostCaption,allValues));
-    output.appendChild(repostRow);
-}
-
-</script>
+                </div>
+
+            </div>
+
+
+            <!-- SLIDESHOW DOTS -->
+
+            <div class="slide-dots">
+
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================================
+             INCOMING MATCH
+             ========================================= -->
+
+        <section class="match-section"
+                 id="match">
+
+            <div class="section-container">
+
+
+                <div class="section-heading">
+
+                    <span>
+                        NEXT GAME
+                    </span>
+
+                    <h2>
+                        INCOMING MATCH
+                    </h2>
+
+                </div>
+
+
+                <div class="match-card">
+
+
+                    <!-- DATE -->
+
+                    <div class="match-date">
+
+                        <span class="date-month">
+                            AUG
+                        </span>
+
+                        <span class="date-day">
+                            22
+                        </span>
+
+                        <span class="date-year">
+                            2026
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- TEAMS -->
+
+                    <div class="match-teams">
+
+
+                        <div class="match-team">
+
+                            <img
+                                src="ogkingslogo.png"
+                                alt="Manila Kings"
+                            >
+
+                            <h3>
+                                OG KINGS
+                            </h3>
+
+                        </div>
+
+
+                        <div class="vs">
+
+                            <span>
+                                VS
+                            </span>
+
+                        </div>
+
+
+                        <div class="match-team">
+
+                            <img
+                                src="OWLS.png"
+                                alt="Opponent"
+                            >
+
+                            <h3>
+                                OWLS
+                            </h3>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- TIME -->
+
+                    <div class="match-time">
+
+                        <span>
+                            GAME TIME
+                        </span>
+
+                        <strong>
+                            7:00 PM
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+       <!-- =========================================
+     TOP PERFORMERS
+     ========================================= -->
+
+<section class="performers-section">
+
+    <div class="section-container">
+
+        <div class="section-heading">
+
+            <span>
+                PLAYER SPOTLIGHT
+            </span>
+
+            <h2>
+                TOP PERFORMERS
+            </h2>
+
+        </div>
+
+
+        <div class="performers-grid">
+
+
+            <!-- PLAYER 1 -->
+
+            <div class="performer-card">
+
+                <div class="performer-photo">
+
+                    <img
+                        src="tpdex.jpg"
+                        alt="Player One"
+                    >
+
+                </div>
+
+
+                <div class="performer-info">
+
+                    <span>
+                        FORWARD
+                    </span>
+
+                    <h3>
+                        RANGEL
+                    </h3>
+
+
+                    <div class="performer-stats">
+
+                        <div class="stat-box">
+                            <strong>8</strong>
+                            <small>GOALS</small>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong>4</strong>
+                            <small>ASSISTS</small>
+                        </div>
+
+                   
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PLAYER 2 -->
+
+            <div class="performer-card">
+
+                <div class="performer-photo">
+
+                    <img
+                        src="PLAYER2.png"
+                        alt="Player Two"
+                    >
+
+                </div>
+
+
+                <div class="performer-info">
+
+                    <span>
+                        CENTER
+                    </span>
+
+                    <h3>
+                        PLAYER TWO
+                    </h3>
+
+
+                    <div class="performer-stats">
+
+                        <div class="stat-box">
+                            <strong>18</strong>
+                            <small>GOALS</small>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong>11</strong>
+                            <small>ASSISTS</small>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong>9</strong>
+                            <small>BLOCKS</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PLAYER 3 -->
+
+            <div class="performer-card">
+
+                <div class="performer-photo">
+
+                    <img
+                        src="PLAYER3.png"
+                        alt="Player Three"
+                    >
+
+                </div>
+
+
+                <div class="performer-info">
+
+                    <span>
+                        GOALIE
+                    </span>
+
+                    <h3>
+                        PLAYER THREE
+                    </h3>
+
+
+                    <div class="performer-stats">
+
+                        <div class="stat-box">
+                            <strong>12</strong>
+                            <small>GOALS</small>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong>7</strong>
+                            <small>ASSISTS</small>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong>20</strong>
+                            <small>BLOCKS</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+        <!-- =========================================
+             QUICK LINKS
+             ========================================= -->
+
+        <section class="quick-section">
+
+            <div class="section-container">
+
+                <div class="quick-grid">
+
+
+                    <a href="team.html"
+                       class="quick-card">
+
+                        <span>
+                            01
+                        </span>
+
+                        <h3>
+                            THE TEAM
+                        </h3>
+
+                        <p>
+                            Meet the players and
+                            coaching staff.
+                        </p>
+
+                    </a>
+
+
+
+                    <a href="#"
+                       class="quick-card">
+
+                        <span>
+                            02
+                        </span>
+
+                        <h3>
+                            STATISTICS
+                        </h3>
+
+                        <p>
+                            Explore player and
+                            team statistics.
+                        </p>
+
+                    </a>
+
+
+
+                    <a href="#match"
+                       class="quick-card">
+
+                        <span>
+                            03
+                        </span>
+
+                        <h3>
+                            SCHEDULE
+                        </h3>
+
+                        <p>
+                            Check upcoming games
+                            and results.
+                        </p>
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================================
+         FOOTER
+         ========================================= -->
+
+  <footer class="site-footer">
+
+    <img
+        src="KINGSLOGO.png"
+        alt="Manila Kings"
+    >
+
+    <p>
+        © 2026 Manila Kings Hockey Club
+    </p>
+
+</footer>
+
+
+
+    <script src="js/script.js"></script>
+
 </body>
+
 </html>
